@@ -14,6 +14,7 @@
         android:layout_margin="8dp"
         app:iconifiedByDefault="false"
         app:queryHint="@string/search"
+        app:queryBackground="@null"
         android:background="@drawable/search_bg"
         android:elevation="5dp" />
 

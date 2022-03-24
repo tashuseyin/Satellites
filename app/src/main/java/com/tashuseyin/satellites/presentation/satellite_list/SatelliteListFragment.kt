@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.tashuseyin.satellites.databinding.FragmentSatelliteListBinding
 import com.tashuseyin.satellites.presentation.satellite_list.adapter.SatelliteListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +32,7 @@ class SatelliteListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navigateDetailFragment()
         observeViewModel()
     }
 
@@ -47,7 +49,16 @@ class SatelliteListFragment : Fragment() {
                 }
             }
         }
+    }
 
+    private fun navigateDetailFragment() {
+        adapter.onItemClickListener = { satelliteId ->
+            findNavController().navigate(
+                SatelliteListFragmentDirections.actionSatelliteListFragmentToSatelliteDetailFragment(
+                    satelliteId
+                )
+            )
+        }
     }
 
 

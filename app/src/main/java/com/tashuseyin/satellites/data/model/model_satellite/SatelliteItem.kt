@@ -1,4 +1,4 @@
-package com.tashuseyin.satellites.data.model
+package com.tashuseyin.satellites.data.model.model_satellite
 
 
 import androidx.room.Entity

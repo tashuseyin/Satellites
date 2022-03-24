@@ -2,7 +2,7 @@ package com.tashuseyin.satellites.presentation.satellite_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tashuseyin.satellites.data.model.SatelliteItem
+import com.tashuseyin.satellites.data.model.model_satellite.SatelliteItem
 import com.tashuseyin.satellites.data.repository.SatellitesRepository
 import com.tashuseyin.satellites.presentation.satellite_list.state.SatelliteListState
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -2,7 +2,7 @@ package com.tashuseyin.satellites.data.repository
 
 import com.tashuseyin.satellites.data.datasource.local.LocalDataSource
 import com.tashuseyin.satellites.data.datasource.remote.RemoteDataSource
-import com.tashuseyin.satellites.data.model.SatelliteItem
+import com.tashuseyin.satellites.data.model.model_satellite.SatelliteItem
 import javax.inject.Inject
 
 class SatellitesRepository @Inject constructor(
