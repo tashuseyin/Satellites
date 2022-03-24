@@ -8,7 +8,7 @@ import com.tashuseyin.satellites.databinding.SatelliteRowLayoutBinding
 
 class SatelliteListAdapter : RecyclerView.Adapter<SatelliteListViewHolder>() {
     private var satelliteList = emptyList<SatelliteItem>()
-    var onItemClickListener: ((Int, Boolean) -> Unit)? = null
+    var onItemClickListener: ((SatelliteItem) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SatelliteListViewHolder {
         val binding =
             SatelliteRowLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)

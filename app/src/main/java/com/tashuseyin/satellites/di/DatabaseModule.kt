@@ -21,7 +21,7 @@ class DatabaseModule {
         Room.databaseBuilder(
             context,
             SatelliteDatabase::class.java,
-            Constants.SATELLITES_DATABASE_NAME
+            Constants.SATELLITES_DETAIL_DATABASE_NAME
         ).build()
 
     @Provides

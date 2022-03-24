@@ -9,7 +9,7 @@ import com.tashuseyin.satellites.databinding.SatelliteRowLayoutBinding
 class SatelliteListViewHolder(private val binding: SatelliteRowLayoutBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(satelliteItem: SatelliteItem, onItemClickListener: ((Int, Boolean) -> Unit)?) {
+    fun bind(satelliteItem: SatelliteItem, onItemClickListener: ((SatelliteItem) -> Unit)?) {
         binding.satelliteName.text = satelliteItem.name
         binding.satelliteStateName.text = if (satelliteItem.active) "active" else "inactive"
         binding.satelliteStateName.setTextColor(if (satelliteItem.active) Color.GREEN else Color.RED)
@@ -22,7 +22,7 @@ class SatelliteListViewHolder(private val binding: SatelliteRowLayoutBinding) :
         }
 
         binding.card.setOnClickListener {
-            onItemClickListener?.invoke(satelliteItem.id, satelliteItem.active)
+            onItemClickListener?.invoke(satelliteItem)
         }
     }
 }

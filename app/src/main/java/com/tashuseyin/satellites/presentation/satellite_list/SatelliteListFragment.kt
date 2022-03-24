@@ -55,11 +55,11 @@ class SatelliteListFragment : Fragment() {
     }
 
     private fun navigateDetailFragment() {
-        adapter.onItemClickListener = { satelliteId, satelliteActive ->
-            if (satelliteActive) {
+        adapter.onItemClickListener = { satelliteItem ->
+            if (satelliteItem.active) {
                 findNavController().navigate(
                     SatelliteListFragmentDirections.actionSatelliteListFragmentToSatelliteDetailFragment(
-                        satelliteId
+                        satelliteItem
                     )
                 )
             } else {
@@ -73,6 +73,7 @@ class SatelliteListFragment : Fragment() {
         val alertDialog = Dialog(requireContext())
         alertDialog.setContentView(alertDialogBinding)
         alertDialog.setCancelable(true)
+        alertDialog.window?.setBackgroundDrawableResource(R.drawable.dialog_bg)
         alertDialog.show()
 
         val buttonOk = alertDialogBinding.findViewById<Button>((R.id.ok))

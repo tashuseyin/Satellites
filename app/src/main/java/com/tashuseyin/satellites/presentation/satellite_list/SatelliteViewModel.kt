@@ -2,7 +2,6 @@ package com.tashuseyin.satellites.presentation.satellite_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tashuseyin.satellites.data.model.model_satellite.SatelliteItem
 import com.tashuseyin.satellites.data.repository.SatellitesRepository
 import com.tashuseyin.satellites.presentation.satellite_list.state.SatelliteListState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,9 +30,6 @@ class SatelliteViewModel @Inject constructor(
         _state.value = SatelliteListState(isLoading = true)
         try {
             val response = repository.getSatellites()
-            response.forEach {
-                insertSatellites(it)
-            }
             _state.value =
                 SatelliteListState(satelliteList = response)
         } catch (e: HttpException) {
@@ -44,9 +40,4 @@ class SatelliteViewModel @Inject constructor(
                 SatelliteListState(error = "Couldn't reach server. Check your internet connection.")
         }
     }
-
-    private suspend fun insertSatellites(satelliteItem: SatelliteItem) {
-        repository.insertSatellite(satelliteItem)
-    }
-
 }
