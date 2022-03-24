@@ -1,7 +1,7 @@
 package com.tashuseyin.satellites.data.datasource.remote
 
-import com.tashuseyin.satellites.data.network.api.SatellitesApi
-import com.tashuseyin.satellites.data.network.model.Satellites
+import com.tashuseyin.satellites.data.network.SatellitesApi
+import com.tashuseyin.satellites.data.model.Satellites
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(

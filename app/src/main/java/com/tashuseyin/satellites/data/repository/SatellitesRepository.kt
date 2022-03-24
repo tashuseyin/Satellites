@@ -1,11 +1,15 @@
 package com.tashuseyin.satellites.data.repository
 
+import com.tashuseyin.satellites.data.datasource.local.LocalDataSource
 import com.tashuseyin.satellites.data.datasource.remote.RemoteDataSource
-import com.tashuseyin.satellites.data.network.model.SatelliteItem
+import com.tashuseyin.satellites.data.model.SatelliteItem
 import javax.inject.Inject
 
 class SatellitesRepository @Inject constructor(
-    private val remote: RemoteDataSource
+    private val remote: RemoteDataSource,
+    private val local: LocalDataSource
 ) {
     suspend fun getSatellites() = remote.getSatellites()
+    suspend fun insertSatellite(satelliteItem: SatelliteItem) =
+        local.insertSatellite(satelliteItem)
 }

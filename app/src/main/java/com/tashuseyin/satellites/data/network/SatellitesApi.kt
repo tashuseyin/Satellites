@@ -1,6 +1,6 @@
-package com.tashuseyin.satellites.data.network.api
+package com.tashuseyin.satellites.data.network
 
-import com.tashuseyin.satellites.data.network.model.Satellites
+import com.tashuseyin.satellites.data.model.Satellites
 import retrofit2.http.GET
 
 interface SatellitesApi {

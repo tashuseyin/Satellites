@@ -1,7 +1,7 @@
 package com.tashuseyin.satellites.di
 
 import com.tashuseyin.satellites.common.Constants
-import com.tashuseyin.satellites.data.network.api.SatellitesApi
+import com.tashuseyin.satellites.data.network.SatellitesApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

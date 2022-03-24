@@ -3,7 +3,7 @@ package com.tashuseyin.satellites.presentation.satellite_list.adapter
 import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import com.tashuseyin.satellites.R
-import com.tashuseyin.satellites.data.network.model.SatelliteItem
+import com.tashuseyin.satellites.data.model.SatelliteItem
 import com.tashuseyin.satellites.databinding.SatelliteRowLayoutBinding
 
 class SatelliteListViewHolder(private val binding: SatelliteRowLayoutBinding) :
