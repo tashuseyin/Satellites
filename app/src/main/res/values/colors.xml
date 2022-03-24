@@ -13,4 +13,7 @@
     <color name="medium_gray">#505050</color>
     <color name="text_white">#eeeeee</color>
     <color name="blue">#47B8EC</color>
+
+    <color name="red">#FF1100</color>
+    <color name="green">#056E09</color>
 </resources>
