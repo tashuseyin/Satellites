@@ -82,4 +82,7 @@ dependencies {
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // AlertDialog
+    implementation 'com.github.Shashank02051997:FancyAlertDialog-Android:0.2'
 }

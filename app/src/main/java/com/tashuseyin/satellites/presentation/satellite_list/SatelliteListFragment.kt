@@ -1,14 +1,17 @@
 package com.tashuseyin.satellites.presentation.satellite_list
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.tashuseyin.satellites.R
 import com.tashuseyin.satellites.databinding.FragmentSatelliteListBinding
 import com.tashuseyin.satellites.presentation.satellite_list.adapter.SatelliteListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,12 +55,29 @@ class SatelliteListFragment : Fragment() {
     }
 
     private fun navigateDetailFragment() {
-        adapter.onItemClickListener = { satelliteId ->
-            findNavController().navigate(
-                SatelliteListFragmentDirections.actionSatelliteListFragmentToSatelliteDetailFragment(
-                    satelliteId
+        adapter.onItemClickListener = { satelliteId, satelliteActive ->
+            if (satelliteActive) {
+                findNavController().navigate(
+                    SatelliteListFragmentDirections.actionSatelliteListFragmentToSatelliteDetailFragment(
+                        satelliteId
+                    )
                 )
-            )
+            } else {
+                showAlertDialog()
+            }
+        }
+    }
+
+    private fun showAlertDialog() {
+        val alertDialogBinding = layoutInflater.inflate(R.layout.alert_dialog, null)
+        val alertDialog = Dialog(requireContext())
+        alertDialog.setContentView(alertDialogBinding)
+        alertDialog.setCancelable(true)
+        alertDialog.show()
+
+        val buttonOk = alertDialogBinding.findViewById<Button>((R.id.ok))
+        buttonOk.setOnClickListener {
+            alertDialog.dismiss()
         }
     }
 

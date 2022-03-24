@@ -6,4 +6,7 @@
     <string name="height_mass">Height/Mass:</string>
     <string name="cost">Cost:</string>
     <string name="last_position">Last Position</string>
+    <string name="satellites_dialog_text">Since this satellite is not active, the details of the satellite are not visible.</string>
+    <string name="ok">OK</string>
+    <string name="click_the_button_to_continue_the_application">Click the button to continue the application.</string>
 </resources>
