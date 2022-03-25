@@ -42,7 +42,6 @@ class SatelliteListFragment : Fragment() {
     }
 
     private fun searching() {
-        binding.search.isSubmitButtonEnabled = true
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 binding.search.clearFocus()
@@ -65,7 +64,7 @@ class SatelliteListFragment : Fragment() {
         val searchQuery = "%$name%"
         satelliteViewModel.searchSatelliteByNameResult(searchQuery)
             .observe(viewLifecycleOwner) { satelliteItem ->
-                adapter.setData(satelliteItem)
+                adapter.submitList(satelliteItem)
             }
     }
 
@@ -73,7 +72,7 @@ class SatelliteListFragment : Fragment() {
         lifecycleScope.launch {
             satelliteViewModel.state.collect { state ->
                 if (state.satelliteList.isNotEmpty()) {
-                    adapter.setData(state.satelliteList)
+                    adapter.submitList(state.satelliteList)
                     binding.recyclerview.adapter = adapter
                 }
                 binding.progress.isVisible = state.isLoading

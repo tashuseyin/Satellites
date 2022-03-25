@@ -13,6 +13,7 @@ class SatellitesRepository @Inject constructor(
     /** Remote Data Source **/
     suspend fun getSatellites() = remote.getSatellites()
     suspend fun getSatelliteById() = remote.getSatelliteById()
+    suspend fun getSatellitePosition() = remote.getSatellitePosition()
 
     /** Local Data Source **/
     suspend fun insertDetailSatellites(satelliteDetailItem: SatelliteDetailItem) =

@@ -10,4 +10,6 @@
     <string name="click_the_button_to_continue_the_application">Click the button to continue the application.</string>
     <string name="first_flight">First Flight</string>
     <string name="height">Height</string>
+    <string name="coordinate_x">Coordinate X</string>
+    <string name="coordinate_y">Coordinate Y</string>
 </resources>

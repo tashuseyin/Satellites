@@ -33,7 +33,27 @@ class SatelliteDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         readDatabase()
+        setPosition()
     }
+
+    private fun setPosition() {
+        lifecycleScope.launch {
+            satelliteDetailViewModel.positionState.collect { state ->
+                binding.apply {
+                    if (state.error.isNotBlank()) {
+                        errorText.text = state.error
+                    }
+                    progress.isVisible = state.isLoading
+
+                    if (state.position.isNotEmpty()) {
+                        lastPositionX.text = state.position[0].positions[0].posX.toString()
+                        lastPositionY.text = state.position[0].positions[0].posY.toString()
+                    }
+                }
+            }
+        }
+    }
+
 
     private fun requestApi() {
         Log.d("TAG", "API")
