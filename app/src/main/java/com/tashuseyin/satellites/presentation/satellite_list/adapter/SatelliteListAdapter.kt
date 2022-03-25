@@ -23,5 +23,6 @@ class SatelliteListAdapter : RecyclerView.Adapter<SatelliteListViewHolder>() {
 
     fun setData(newSatelliteList: List<SatelliteItem>) {
         this.satelliteList = newSatelliteList
+        this.notifyDataSetChanged()
     }
 }

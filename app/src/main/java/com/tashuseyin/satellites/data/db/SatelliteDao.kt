@@ -20,6 +20,6 @@ interface SatelliteDao {
     @Query("SELECT * FROM satellites_detail_table WHERE id = :id")
     fun getSatellitesDetailDatabase(id: Int): LiveData<SatelliteDetailItem>
 
-    @Query("SELECT * FROM satellites_table WHERE name LIKE Lower(:name)")
+    @Query("SELECT * FROM satellites_table WHERE name LIKE :name")
     fun searchSatelliteByName(name: String): LiveData<List<SatelliteItem>>
 }

@@ -25,7 +25,7 @@ class SatelliteDetailViewModel @Inject constructor(
 
     private val _state = MutableStateFlow(SatelliteDetailState())
     val state: StateFlow<SatelliteDetailState> = _state
-    private val satelliteItem = savedStateHandle.get<SatelliteItem>(Constants.SATELLITES_ITEM)
+    val satelliteItem = savedStateHandle.get<SatelliteItem>(Constants.SATELLITES_ITEM)
 
     fun getSatelliteDetailItem() = viewModelScope.launch {
         satelliteItem?.let {
@@ -46,7 +46,7 @@ class SatelliteDetailViewModel @Inject constructor(
                 repository.getSatelliteById().filter { satelliteItem.id == it.id }
             insertSatelliteDetailItem(response.first())
             _state.value =
-                SatelliteDetailState(satellite = response.first(), satelliteItem = satelliteItem)
+                SatelliteDetailState(satellite = response.first())
         } catch (e: HttpException) {
             _state.value =
                 SatelliteDetailState(error = e.localizedMessage ?: "An unexpected error occurred")

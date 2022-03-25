@@ -42,17 +42,19 @@ class SatelliteListFragment : Fragment() {
     }
 
     private fun searching() {
+        binding.search.isSubmitButtonEnabled = true
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                binding.search.clearFocus()
                 if (query != null) {
                     searchSatelliteByName(query)
                 }
                 return false
             }
 
-            override fun onQueryTextChange(query: String?): Boolean {
-                if (query != null) {
-                    searchSatelliteByName(query)
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    searchSatelliteByName(newText)
                 }
                 return false
             }

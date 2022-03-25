@@ -49,10 +49,6 @@ class SatelliteDetailFragment : Fragment() {
                     if (state.satellite != null) {
                         setDataSatelliteDetailItem(state.satellite)
                     }
-
-                    if (state.satelliteItem != null) {
-                        satelliteName.text = state.satelliteItem.name
-                    }
                 }
             }
         }
@@ -60,10 +56,12 @@ class SatelliteDetailFragment : Fragment() {
 
     private fun setDataSatelliteDetailItem(satelliteDetailItem: SatelliteDetailItem) {
         binding.apply {
+            if (satelliteDetailViewModel.satelliteItem != null) {
+                satelliteName.text = satelliteDetailViewModel.satelliteItem!!.name
+            }
             satelliteCost.text = satelliteDetailItem.costPerLaunch.toString()
-            val heightMass =
-                satelliteDetailItem.height.toString() + "/" + satelliteDetailItem.mass.toString()
-            satelliteHeightMass.text = heightMass
+            satelliteHeight.text = satelliteDetailItem.height.toString()
+            satelliteMass.text = satelliteDetailItem.mass.toString()
             satelliteDate.text = satelliteDetailItem.firstFlight
         }
 
