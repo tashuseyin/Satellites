@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -37,6 +38,33 @@ class SatelliteListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navigateDetailFragment()
         observeViewModel()
+        searching()
+    }
+
+    private fun searching() {
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    searchSatelliteByName(query)
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                if (query != null) {
+                    searchSatelliteByName(query)
+                }
+                return false
+            }
+        })
+    }
+
+    private fun searchSatelliteByName(name: String) {
+        val searchQuery = "%$name%"
+        satelliteViewModel.searchSatelliteByNameResult(searchQuery)
+            .observe(viewLifecycleOwner) { satelliteItem ->
+                adapter.setData(satelliteItem)
+            }
     }
 
     private fun observeViewModel() {

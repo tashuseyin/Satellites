@@ -1,6 +1,7 @@
 package com.tashuseyin.satellites.presentation.satellite_detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.tashuseyin.satellites.common.observeOnce
+import com.tashuseyin.satellites.data.model.model_satellite_detail.SatelliteDetailItem
 import com.tashuseyin.satellites.databinding.FragmentSatelliteDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -29,10 +32,12 @@ class SatelliteDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeModel()
+        readDatabase()
     }
 
-    private fun observeModel() {
+    private fun requestApi() {
+        Log.d("TAG", "API")
+        satelliteDetailViewModel.getSatelliteDetailItem()
         lifecycleScope.launch {
             satelliteDetailViewModel.state.collect { state ->
                 binding.apply {
@@ -42,15 +47,37 @@ class SatelliteDetailFragment : Fragment() {
                     progress.isVisible = state.isLoading
 
                     if (state.satellite != null) {
-                        satelliteCost.text = state.satellite.costPerLaunch.toString()
-                        val heightMass =
-                            state.satellite.height.toString() + "/" + state.satellite.mass.toString()
-                        satelliteHeightMass.text = heightMass
-                        satelliteDate.text = state.satellite.firstFlight
+                        setDataSatelliteDetailItem(state.satellite)
                     }
+
                     if (state.satelliteItem != null) {
                         satelliteName.text = state.satelliteItem.name
                     }
+                }
+            }
+        }
+    }
+
+    private fun setDataSatelliteDetailItem(satelliteDetailItem: SatelliteDetailItem) {
+        binding.apply {
+            satelliteCost.text = satelliteDetailItem.costPerLaunch.toString()
+            val heightMass =
+                satelliteDetailItem.height.toString() + "/" + satelliteDetailItem.mass.toString()
+            satelliteHeightMass.text = heightMass
+            satelliteDate.text = satelliteDetailItem.firstFlight
+        }
+
+    }
+
+
+    private fun readDatabase() {
+        lifecycleScope.launch {
+            satelliteDetailViewModel.readSatelliteDetailDatabase?.observeOnce(viewLifecycleOwner) { satelliteDetailItem ->
+                if (satelliteDetailItem != null) {
+                    Log.d("TAG", "DATABASE")
+                    setDataSatelliteDetailItem(satelliteDetailItem)
+                } else {
+                    requestApi()
                 }
             }
         }

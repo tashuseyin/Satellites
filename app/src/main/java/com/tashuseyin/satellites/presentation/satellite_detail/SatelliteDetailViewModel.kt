@@ -1,5 +1,6 @@
 package com.tashuseyin.satellites.presentation.satellite_detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -24,13 +25,18 @@ class SatelliteDetailViewModel @Inject constructor(
 
     private val _state = MutableStateFlow(SatelliteDetailState())
     val state: StateFlow<SatelliteDetailState> = _state
+    private val satelliteItem = savedStateHandle.get<SatelliteItem>(Constants.SATELLITES_ITEM)
 
-    init {
-        viewModelScope.launch {
-            savedStateHandle.get<SatelliteItem>(Constants.SATELLITES_ITEM)?.let { satelliteItem ->
-                getSatelliteById(satelliteItem)
-            }
+    fun getSatelliteDetailItem() = viewModelScope.launch {
+        satelliteItem?.let {
+            getSatelliteById(it)
         }
+    }
+
+    val readSatelliteDetailDatabase: LiveData<SatelliteDetailItem>? = satelliteItem?.let {
+        repository.getSatellitesDetailDatabase(
+            it.id
+        )
     }
 
     private suspend fun getSatelliteById(satelliteItem: SatelliteItem) {
@@ -51,6 +57,6 @@ class SatelliteDetailViewModel @Inject constructor(
     }
 
     private suspend fun insertSatelliteDetailItem(satelliteDetailItem: SatelliteDetailItem) {
-        repository.insertSatellite(satelliteDetailItem)
+        repository.insertDetailSatellites(satelliteDetailItem)
     }
 }
