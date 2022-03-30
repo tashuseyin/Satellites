@@ -1,5 +1,6 @@
 package com.tashuseyin.satellites.presentation.satellite_detail
 
+import android.os.CountDownTimer
 import androidx.lifecycle.*
 import com.tashuseyin.satellites.common.Constants
 import com.tashuseyin.satellites.data.model.model_satellite.SatelliteItem
@@ -38,6 +39,21 @@ class SatelliteDetailViewModel @Inject constructor(
             satelliteItem?.let {
                 getSatellitePosition(it)
             }
+        }
+    }
+
+    private val _time: MutableLiveData<Int> = MutableLiveData()
+    val time get() = _time
+
+    fun countDownTimer() {
+        viewModelScope.launch {
+            val timer = object : CountDownTimer(3000, 1000) {
+                override fun onTick(p0: Long) {}
+                override fun onFinish() {
+                    _time.value = 3
+                }
+            }
+            timer.start()
         }
     }
 

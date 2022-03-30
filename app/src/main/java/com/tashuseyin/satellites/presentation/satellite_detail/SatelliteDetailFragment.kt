@@ -1,7 +1,6 @@
 package com.tashuseyin.satellites.presentation.satellite_detail
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import com.tashuseyin.satellites.common.observeOnce
 import com.tashuseyin.satellites.data.model.model_satellite_detail.SatelliteDetailItem
 import com.tashuseyin.satellites.databinding.FragmentSatelliteDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -22,7 +20,6 @@ import kotlinx.coroutines.launch
 class SatelliteDetailFragment : Fragment() {
     private val satelliteDetailViewModel: SatelliteDetailViewModel by viewModels()
     private var position = 0
-    private var job: Job? = null
     private var _binding: FragmentSatelliteDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -38,13 +35,14 @@ class SatelliteDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         readDatabase()
         setPosition()
-        countDownTimer()
+        startTimerForUpdatePosition()
     }
 
     private fun setPosition() {
         lifecycleScope.launch {
             satelliteDetailViewModel.position.observe(viewLifecycleOwner) { satelliteItemPosition ->
                 if (satelliteItemPosition != null) {
+                    satelliteDetailViewModel.countDownTimer()
                     binding.apply {
                         lastPositionX.text =
                             satelliteItemPosition.positions[position].posX.toString()
@@ -56,20 +54,17 @@ class SatelliteDetailFragment : Fragment() {
         }
     }
 
-    private fun countDownTimer() {
-        job?.cancel()
-        job = lifecycleScope.launch {
-            val timer = object : CountDownTimer(3000, 1000) {
-                override fun onTick(p0: Long) {}
-
-                override fun onFinish() {
-                    position++
-                    if (position == 3) position = 0
-                    setPosition()
-                    countDownTimer()
+    private fun startTimerForUpdatePosition() {
+        lifecycleScope.launch {
+            satelliteDetailViewModel.time.observe(viewLifecycleOwner) {
+                when (it) {
+                    3 -> {
+                        position++
+                        if (position == 3) position = 0
+                        setPosition()
+                    }
                 }
             }
-            timer.start()
         }
     }
 
