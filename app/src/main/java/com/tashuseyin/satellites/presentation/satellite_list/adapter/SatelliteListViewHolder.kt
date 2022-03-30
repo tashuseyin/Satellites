@@ -11,7 +11,7 @@ class SatelliteListViewHolder(private val binding: SatelliteRowLayoutBinding) :
 
     fun bind(satelliteItem: SatelliteItem, onItemClickListener: ((SatelliteItem) -> Unit)?) {
         binding.satelliteName.text = satelliteItem.name
-        binding.satelliteStateName.text = if (satelliteItem.active) "active" else "inactive"
+        binding.satelliteStateName.text = if (satelliteItem.active) "Active" else "Passive"
         binding.satelliteStateName.setTextColor(if (satelliteItem.active) Color.GREEN else Color.RED)
         if (!satelliteItem.active) {
             binding.satelliteState.setImageResource(R.drawable.satellite_state_red)
